@@ -40,7 +40,7 @@ void i2stop( ){
 }
 
 
-void i2flush(){  // needed during setup, call poll to empty out the buffer.  This one does block.
+void i2flush(){  // call poll to empty out the buffer.  This one does block.
 
   while( i2poll() ); 
 }
