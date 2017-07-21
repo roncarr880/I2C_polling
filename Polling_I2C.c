@@ -3,14 +3,21 @@
 // adapt to a different processor.
 
 // polling I2C implementation because wire library blocks
+// globals
 #define I2BUFSIZE 128
 int i2buf[I2BUFSIZE];
 int i2in, i2out;
 
-
 /*  I2C write only implementation using polling of the hardware registers */
 /*  the functions do not block */
 /*  call i2poll() in loop() to keep everything going */
+
+// In setup() put these lines of code
+  // start up our local I2C routines
+  I2C1CONSET = 0x8000;      // I2C on bit
+  I2C1BRG = 90;             // 400 khz
+  i2stop();                 // clear any extraneous info that devices may have detected on powerup
+
 
 // use some upper bits in the buffer for control
 #define ISTART 0x100
