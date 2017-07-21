@@ -1,6 +1,6 @@
 # I2C_polling
-A write only, non-blocking, I2C set of functions for a Chipkit uC32
+A write only, non-blocking, I2C master mode set of functions for a Chipkit uC32.
 
-The Wire library for the chipkit uC32 blocks on start and stop commands.  A typical sequence of start, a couple of data bytes and stop will block for the entire set of transactions.  Even though the data bytes are loaded via an interupt, your program will just be waiting for everything to finish and the stop condition to complete.
+There seems to be some confusion about what non-blocking means in regards to the Wire library. Yes it hangs your whole program when there is an issue on the I2C bus, but it also blocks in the sense that it waits for all transactions to complete.  This behavior greatly reduces the amount of processing power you have available.  The I2C bus is slow, why wait?
 
-The functions here do not block.  The polling function must be called from your loop function as often as you like to keep the state sequenced code running.
+The functions here do not block. The functions are state sequenced and return immediately if there is nothing for them to do. If there is something to do, they will typically load a single register and return immediately.  The polling function must be called from your loop function as often as you like to keep the state sequenced code running.
